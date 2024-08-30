@@ -92,7 +92,7 @@ def get_greenland_shape(outpath=None, buffer_deg=0.2) -> MultiPolygon:
 
     # download the whole greenland shapefile
     print("Downloading Greenland shapefile...")
-    r = requests.get(GREENLAND_URL)
+    r = requests.get(GREENLAND_URL, timeout=60)
     zipfile = outpath / "greenland.zip"
     if not zipfile.exists():
         with open(zipfile, "wb") as fout:

@@ -53,8 +53,8 @@ class StacSearch:
         safe_names = []
         for sat in missions:
             resp = requests.get(
-                date_list_url.format(sat=sat, date_str=date.strftime("%Y/%m/%d"))
-            )
+                date_list_url.format(sat=sat, date_str=date.strftime("%Y/%m/%d")), 
+            timeout=60)
             try:
                 resp.raise_for_status()
             except requests.HTTPError:
@@ -87,7 +87,7 @@ class StacSearch:
         # example:
         # https://cmr.earthdata.nasa.gov/stac/ASF/collections/SENTINEL-1A_SLC.v1/items/S1A_IW_SLC__1SDV_20150302T000329_20150302T000356_004845_006086_51B0-SLC
         sat = "A" if safe_name.startswith("S1A") else "B"
-        resp = requests.get(item_url.format(safe_name=safe_name, sat=sat))
+        resp = requests.get(item_url.format(safe_name=safe_name, sat=sat), timeout=60)
         resp.raise_for_status()
         js = resp.json()
         # Get the polygon
